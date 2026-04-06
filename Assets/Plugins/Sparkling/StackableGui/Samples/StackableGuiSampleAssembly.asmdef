@@ -1,0 +1,16 @@
+{
+    "name": "StackableGuiSampleAssembly",
+    "rootNamespace": "",
+    "references": [
+        "GUID:b0f17ad6124e4814a92ad19625da5a9b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
