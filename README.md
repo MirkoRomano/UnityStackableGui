@@ -1,10 +1,7 @@
-Here is a professional **README.md** in English, tailored to highlight the modular architecture and technical strengths of your asset.
 
----
+# StackableGui
 
-# Sparkling.StackableGui
-
-**Sparkling.StackableGui** is a robust, stack-based UI management system for Unity. It is designed with architectural decoupling and modularity in mind, allowing developers to manage complex UI hierarchies across multiple layers with ease.
+**StackableGui** is a robust, stack-based UI management system for Unity. It is designed with architectural decoupling and modularity in mind, allowing developers to manage complex UI hierarchies across multiple layers with ease.
 
 The system treats different UI sections (Background, Gameplay, Popups, etc.) as independent stacks, automating rendering order, input blocking, and Safe Area calculations.
 
