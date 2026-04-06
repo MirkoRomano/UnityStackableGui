@@ -129,12 +129,7 @@ namespace Sparkling.StackableGui.Mono
 
             public void ReleasePrefab(GameObject prefab)
             {
-                if (prefab == null)
-                {
-                    return;
-                }
 
-                Resources.UnloadAsset(prefab);
             }
         }
     }

@@ -12,7 +12,7 @@ namespace Sparkling.StackableGui
         GameObject Instance { get; }
         GameObject Prefab { get; }
         GameObject Parent { get; }
-        void Initialize(GameObject prefab);
+        void Initialize(GameObject prefab, GameObject parent);
         void OnPushedIntoStack();
         void OnPoppedFromStack();
         void SetActive(bool active);

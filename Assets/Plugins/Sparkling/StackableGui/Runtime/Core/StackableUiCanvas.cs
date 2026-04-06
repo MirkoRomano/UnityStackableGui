@@ -84,8 +84,10 @@ namespace Sparkling.StackableGui
             }
 
             int oldStackSize = m_guiElements.Count;
-            element.Initialize(asset);
+            element.Initialize(asset, gameObject);
             m_guiElements.AddLast(element);
+
+            ReorderUiElements();
 
             ApplyVisibilityMode(mode);
             element.OnPushedIntoStack();
@@ -107,8 +109,10 @@ namespace Sparkling.StackableGui
 
             void OnPrefabLoaded(GameObject prefab)
             {
-                element.Initialize(prefab);
+                element.Initialize(prefab, gameObject);
                 m_guiElements.AddLast(element);
+
+                ReorderUiElements();
 
                 ApplyVisibilityMode(mode);
                 element.OnPushedIntoStack();
@@ -235,7 +239,7 @@ namespace Sparkling.StackableGui
                 return;
             }
 
-            element.Initialize(asset);
+            element.Initialize(asset, gameObject);
 
             LinkedListNode<IStackableUIElement> nodeAtIndex = GetNodeAt(index);
 
@@ -293,7 +297,7 @@ namespace Sparkling.StackableGui
                     Debug.LogWarning($"Index {index} is no longer valid after async load in {gameObject.name}. Inserting at top.");
                 }
 
-                element.Initialize(prefab);
+                element.Initialize(prefab, gameObject);
 
                 int oldStackSize = m_guiElements.Count;
                 if (nodeAtIndex == null)
@@ -417,7 +421,8 @@ namespace Sparkling.StackableGui
             {
                 if (element?.Instance != null)
                 {
-                    element.Instance.transform.SetSiblingIndex(siblingIndex++);
+                    element.Instance.transform.SetSiblingIndex(siblingIndex);
+                    siblingIndex++;
                 }
             }
         }
