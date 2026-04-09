@@ -1,11 +1,13 @@
 using System;
 using UnityEngine;
 
-namespace Sparkling.StackableGui.Mono
+namespace Sparkling.StackableGui.Sample
 {
     public class SampleStackableGuiDirector : MonoBehaviour, IStackableUiDirector
     {
         public static SampleStackableGuiDirector Instance;
+
+        public static bool Active => Instance != null && Instance.gameObject.activeSelf;
 
         [SerializeField]
         private CanvasSetting m_settings;
