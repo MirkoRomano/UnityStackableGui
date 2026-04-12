@@ -1,47 +1,48 @@
-using System;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace Sparkling.StackableGui.Sample
 {
-    public class SampleStackablePopup : IStackableUIElement
+    public class SampleStackablePopup : SampleStackableElement
     {
-        public string Path => throw new NotImplementedException();
+        public override string Path => "SamplePrefabs/SampleStackablePopup_Pref";
+        public override bool IsLoaded => m_renderer && !m_renderer.cull;
+        
+        private CanvasRenderer m_renderer;
+        private Button m_confirmButton;
 
-        public bool IsVisible => throw new NotImplementedException();
-
-        public bool IsLoaded => throw new NotImplementedException();
-
-        public bool IsAnimating => throw new NotImplementedException();
-
-        public GameObject Instance => throw new NotImplementedException();
-
-        public GameObject Prefab => throw new NotImplementedException();
-
-        public GameObject Parent => throw new NotImplementedException();
-
-        public void Animate(string animationName, Action callback = null)
+        public override void Initialize(GameObject prefab, GameObject parent)
         {
-            throw new NotImplementedException();
+            base.Initialize(prefab, parent);
+            m_renderer = m_instance.GetComponentInChildren<CanvasRenderer>();
+            m_confirmButton = m_instance.transform.Find("Panel/Footer/Button (Legacy)").GetComponent<Button>();
+            ForceResetanimation();
         }
 
-        public void Initialize(GameObject prefab, GameObject parent)
+        public override void OnPushedIntoStack()
         {
-            throw new NotImplementedException();
+            if (!SampleStackableGuiDirector.Active)
+            {
+                return;
+            }
+
+            Animate("Out");
         }
 
-        public void OnPoppedFromStack()
+        public override void OnPoppedFromStack()
         {
-            throw new NotImplementedException();
+            if (!SampleStackableGuiDirector.Active)
+            {
+                return;
+            }
+
+            Animate("Exit", Destroy);
         }
 
-        public void OnPushedIntoStack()
+        public void SubscribeConfirmButton(UnityAction action)
         {
-            throw new NotImplementedException();
-        }
-
-        public void SetActive(bool active)
-        {
-            throw new NotImplementedException();
+            m_confirmButton.onClick.AddListener(action);
         }
     }
 }

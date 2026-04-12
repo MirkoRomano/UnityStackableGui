@@ -112,5 +112,15 @@ namespace Sparkling.StackableGui.Sample
                 GameObject.DestroyImmediate(m_instance);
             }
         }
+
+        protected void ForceResetanimation()
+        {
+            if (m_animator == null)
+            {
+                return;
+            }
+
+            m_animator.Update(0f);
+        }
     }
 }

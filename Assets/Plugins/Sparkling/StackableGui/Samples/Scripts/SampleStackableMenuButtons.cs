@@ -21,14 +21,25 @@ namespace Sparkling.StackableGui.Sample
         private ImageButton m_middleButton;
 
         [SerializeField]
+        private ImageButton m_frontButton;
+
+        [SerializeField]
         private ImageButton m_overButton;
 
         [SerializeField]
         private Button m_shakeButton;
 
+        [SerializeField]
+        private Button m_showPopup;
+
         public void SubscribeShakeButton(UnityAction action)
         {
             m_shakeButton.onClick.AddListener(action);
+        }
+
+        public void SubscribeShowPopupButton(UnityAction action)
+        {
+            m_showPopup.onClick.AddListener(action);
         }
 
         public void SubscribeButton(CanvasType type, UnityAction action)
@@ -61,6 +72,7 @@ namespace Sparkling.StackableGui.Sample
             {
                 CanvasType.Back => m_backButton,
                 CanvasType.Middle => m_middleButton,
+                CanvasType.Front => m_frontButton,
                 CanvasType.Over => m_overButton,
                 _ => null
             };

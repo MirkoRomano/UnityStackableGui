@@ -5,14 +5,11 @@ namespace Sparkling.StackableGui.Sample
 {
     public class SampleStackableGuiStarter : MonoBehaviour
     {
-        private SampleStackableGuiDirector m_director;
+        private SampleStackableGuiDirector m_director => SampleStackableGuiDirector.Instance;
 
         IEnumerator Start()
         {
-            yield return new WaitForSeconds(1);
-
-            m_director = SampleStackableGuiDirector.Instance;
-
+            yield return new WaitUntil(() => m_director != null);
             SampleStackableElement initialElement = CreateStackableMenu();
             yield return new WaitUntil(() => initialElement.IsLoaded);
             initialElement.Animate("Enter");
@@ -27,9 +24,12 @@ namespace Sparkling.StackableGui.Sample
             menuElement.SubscribeRemoveBackImage(RemoveBackImage);
             menuElement.SubscribeAddMiddleImage(AddMiddleImage);
             menuElement.SubscribeRemoveMiddleImage(RemoveMiddleImage);
+            menuElement.SubscribeAddFrontImage(AddFrontImage);
+            menuElement.SubscribeRemoveFrontImage(RemoveFrontImage);
             menuElement.SubscribeAddOverImage(AddOverImage);
             menuElement.SubscribeRemoveOverImage(RemoveOverImage);
             menuElement.SubscribeShakeScreen(ShakeScreen);
+            menuElement.SubscribeShowPopup(ShowPopup);
             return menuElement;
         }
 
@@ -39,9 +39,11 @@ namespace Sparkling.StackableGui.Sample
         public void AddMiddleImage() => AddImage(new SampleStackableImage(), CanvasType.Middle);
         public void RemoveMiddleImage() => RemoveImage(CanvasType.Middle);
 
+        public void AddFrontImage() => AddImage(new SampleStackableImage(), CanvasType.Front);
+        public void RemoveFrontImage() => RemoveImage(CanvasType.Front);
+
         public void AddOverImage() => AddImage(new SampleStackableImage(), CanvasType.Over);
         public void RemoveOverImage() => RemoveImage(CanvasType.Over);
-
 
         private void AddImage(SampleStackableImage image, CanvasType canvas)
         {
@@ -54,7 +56,20 @@ namespace Sparkling.StackableGui.Sample
 
         private void RemoveImage(CanvasType canvas)
         {
-            m_director.PopUiElementFromCanvas(canvas);
+            m_director.PopUiElementFromCanvasIfMatch<SampleStackableImage>(canvas);
+        }
+
+        public void ShowPopup()
+        {
+            SampleStackablePopup popup = new SampleStackablePopup();
+            m_director.PushUiElementIntoCanvasCallback(popup, CanvasType.System, StackVisibilityMode.AllVisible, InputBlockingMode.BlockNone, () =>
+            {
+                popup.Animate("Enter");
+                popup.SubscribeConfirmButton(() =>
+                {
+                    m_director.PopUiElementFromCanvasIfMatch<SampleStackablePopup>(CanvasType.System);
+                });
+            });
         }
 
         private void ShakeScreen()

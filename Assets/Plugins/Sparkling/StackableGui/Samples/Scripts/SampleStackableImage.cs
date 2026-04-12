@@ -15,8 +15,7 @@ namespace Sparkling.StackableGui.Sample
             base.Initialize(prefab, parent);
             m_renderer = m_instance.GetComponentInChildren<CanvasRenderer>();
             m_image = m_instance.GetComponentInChildren<Image>();
-
-            m_animator.Update(0f);
+            ForceResetanimation();
         }
 
         public override void OnPushedIntoStack()

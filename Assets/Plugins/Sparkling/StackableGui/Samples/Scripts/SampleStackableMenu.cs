@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -18,7 +16,7 @@ namespace Sparkling.StackableGui.Sample
             m_renderer = m_instance.GetComponentInChildren<CanvasRenderer>();
             m_buttons = m_instance.GetComponent<SampleStackableMenuButtons>();
 
-            m_animator.Update(0f);
+            ForceResetanimation();
         }
 
         public override void OnPushedIntoStack()
@@ -61,6 +59,16 @@ namespace Sparkling.StackableGui.Sample
             m_buttons.RemoveButton(CanvasType.Middle, action);
         }
 
+        public void SubscribeAddFrontImage(UnityAction action)
+        {
+            m_buttons.SubscribeButton(CanvasType.Front, action);
+        }
+
+        public void SubscribeRemoveFrontImage(UnityAction action)
+        {
+            m_buttons.RemoveButton(CanvasType.Front, action);
+        }
+
         public void SubscribeAddOverImage(UnityAction action)
         {
             m_buttons.SubscribeButton(CanvasType.Over, action);
@@ -69,6 +77,11 @@ namespace Sparkling.StackableGui.Sample
         public void SubscribeRemoveOverImage(UnityAction action)
         {
             m_buttons.RemoveButton(CanvasType.Over, action);
+        }
+
+        public void SubscribeShowPopup(UnityAction action)
+        {
+            m_buttons.SubscribeShowPopupButton(action);
         }
 
         public void SubscribeShakeScreen(UnityAction action)
