@@ -50,6 +50,9 @@ namespace Sparkling.StackableGui
         /// <summary>An element was added to the stack.</summary>
         Pushed,
 
+        /// <summary>An element was inserted into the stack.</summary>
+        Inserted,
+
         /// <summary>An element was removed from the stack.</summary>
         Popped,
 

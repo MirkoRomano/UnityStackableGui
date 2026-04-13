@@ -189,12 +189,11 @@ namespace Sparkling.StackableGui
 
             OnStackChanged?.Invoke(new StackChangedEventArgs(StackChangeType.Popped, elementToRemove, oldStackSize, m_guiElements.Count));
 
-            if (m_guiElements.Count <= 0)
+            if (m_guiElements.Count > 0)
             {
-                return;
+                ApplyVisibilityMode(mode);
             }
 
-            ApplyVisibilityMode(mode);
             callback?.Invoke();
         }
 
@@ -257,7 +256,7 @@ namespace Sparkling.StackableGui
             ReorderUiElements();
             ApplyVisibilityMode(mode);
 
-            OnStackChanged?.Invoke(new StackChangedEventArgs(StackChangeType.Pushed, element, oldStackSize, m_guiElements.Count));
+            OnStackChanged?.Invoke(new StackChangedEventArgs(StackChangeType.Inserted, element, oldStackSize, m_guiElements.Count));
         }
 
         /// <summary>
@@ -312,7 +311,7 @@ namespace Sparkling.StackableGui
                 element.OnPushedIntoStack();
                 ReorderUiElements();
 
-                OnStackChanged?.Invoke(new StackChangedEventArgs(StackChangeType.Pushed, element, oldStackSize, m_guiElements.Count));
+                OnStackChanged?.Invoke(new StackChangedEventArgs(StackChangeType.Inserted, element, oldStackSize, m_guiElements.Count));
                 callback?.Invoke();
             }
 
